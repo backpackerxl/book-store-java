@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>书城首页</title>
+    <link rel="shortcut icon" href="./img/book.png" type="image/png">
+    <link rel="stylesheet" href="./css/nav-footer.css">
+    <link rel="stylesheet" href="./css/index.css">
+    <link rel="stylesheet" href="./css/font-awesome.min.css">
+    <script src="./js/jquery-3.6.0.min.js"></script>
+</head>
+
+<body>
+    <nav>
+        <header class="heeder">
+            <div class="left">
+                <h4><i class="fa fa-book"></i>eSHOP</h4>
+                <p>backpackerxl.cn</p>
+            </div>
+            <div class="right">
+                <ul>
+                    <a href="#"><i class="fa fa-shopping-cart"></i>购物车</a>
+                    <a href="#"><span>|</span><i class="fa fa-question-circle"></i>帮助中心</a>
+                    <a href="#"><span>|</span><i class="fa fa-user"></i>我的账户</a>
+                    <a href="#"><span>|</span><i class="fa fa-registered"></i>新用户注册</a>
+                </ul>
+            </div>
+        </header>
+        <div class="top">
+            <ul>
+                <a href="#"><i class="fa fa-home"></i>首页</a>
+                <a href="#"><span>|</span><i class="fa fa-user"></i>我的账户</a>
+                <a href="#"><span>|</span><i class="fa fa-user-circle-o"></i>圈子</a>
+            </ul>
+            <div class="search">
+                <input type="text">
+                <button id="search"><i class="fa fa-search"></i>搜索</button>
+            </div>
+        </div>
+        <div id="middle-nav" class="middle">
+            <ul>
+                <a href="#">文学</a>
+                <a href="#">生活</a>
+                <a href="#">计算机</a>
+                <a href="#">外语</a>
+                <a href="#">经管</a>
+                <a href="#">励志</a>
+                <a href="#">社科</a>
+                <a href="#">学术</a>
+                <a href="#">少儿</a>
+                <a href="#">艺术</a>
+                <a href="#">原版</a>
+                <a href="#">科技</a>
+                <a href="#">考试</a>
+                <a href="#">生活百科</a>
+                <a href="#">全部商品目录</a>
+            </ul>
+            <div id="username" class="user">
+                <img src="./img/man.png">
+                <span>admin</span>
+                <ul id="menu-pop">
+                    <a href="#">帐号管理</a>
+                    <a href="#">退出登录</a>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <script>
+        $(()=> {
+            $("#username").on("click", () => {
+                if ($("#menu-pop").is(":hidden")) {
+                    $("#menu-pop").show(100);
+                } else {
+                    $("#menu-pop").hide(100);
+                }
+            })
+        })
+        $(window).bind("scroll", () => {
+            if ($(document).scrollTop() >= 100) {
+                $("#middle-nav").css({ "position": "fixed", "top": 0, "width": "100%" })
+            } else {
+                $("#middle-nav").removeAttr("style")
+            }
+        })
+    </script>
+   
+    <div class="container">
+        <div id="top-warp">
+            <div class="left">
+                <div id="swiper">
+                    <ul>
+                        <li><img src="./img/book-001.jpg"></li>
+                        <li><img src="./img/book-004.jpg"></li>
+                        <li><img src="./img/book-005.jpg"></li>
+                        <li><img src="./img/book-006.jpg"></li>
+                        <li><img src="./img/book-007.jpg"></li>
+                    </ul>
+                    <div class="number-point">
+                        <span class="active"></span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                    <a href="javascript:;" class="prev"><i class="fa fa-chevron-left"></i></a>
+                    <a href="javascript:;" class="next"><i class="fa fa-chevron-right"></i></a>
+                </div>
+            </div>
+            <div class="right">
+                <div class="right-txt">
+                    <h4>新书上架</h4>
+                    <p class="title">尼泊尔(Lonely Planet 旅行指南系列)</p>
+                    <p class="contxt">尼泊尔王国地处巍峨的喜马拉雅山区，山地的冷气流与印度平原的暖气流在此交汇。这里不仅是耗牛、雪人、佛塔和夏尔巴人的国度，而且拥有世界上最好的徒步旅行线路</p>
+                </div>
+                <img src="./img/book-002.png">
+            </div>
+        </div>
+        <div id="midlle-warp">
+            <div class="left">
+                <h4 id="notice"><i class="fa fa-bell"></i>公告板 <span>more&nbsp;<i class="fa fa-chevron-right"></i></span></h4>
+                <li id="info-notice">图书3折起，支持在线浏览，先看再买不后悔，任何商品免费送</li>
+                <li id="info-notice">Lonely Planet 已出版600多种旅行指南，几乎覆盖了全世界的每一个角落</li>
+                <li id="info-notice">2007年中旅游图书畅销榜速递 中国游，世界游，旅游图书全部7折封顶</li>
+                <li id="info-notice">50万种图书3折，百货团购价热卖 畅销榜新书速递，促销天天有</li>
+            </div>
+            <div id="right-info-hot">
+                <div class="contxt">
+                    <h4><i class="fa fa-fire"></i>本周热卖</h4>
+                    <p>Java2 入门经典(JDK8)</p>
+                    <p>作者：(美)霍顿</p>
+                </div>
+                <img src="./img/book-003.png">
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>eSHOP图书商城 &copy; <a href="http://gitee.com/backpackerxl">Gitee Backpackerxl</a></p>
+    </footer>
+    <script src="./js/swiper.js"></script>
+</body>
+
+</html>

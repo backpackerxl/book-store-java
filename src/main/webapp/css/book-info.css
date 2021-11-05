@@ -1,0 +1,105 @@
+.porduct-book {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.product-img-warp {
+    width: 300px;
+    height: 320px;
+    margin: 50px 0 0 0;
+    box-sizing: border-box;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, .2);
+    border-radius: 6px;
+    overflow: hidden;
+}
+
+.product-img-warp img {
+    width: 300px;
+    object-fit: cover;
+}
+
+.product-information {
+    margin: 40px 0;
+    width: 350px;
+}
+
+.product-information .book-name {
+    font-size: 20px;
+    line-height: 1rem;
+    padding: 5px 0;
+    font-weight: 500;
+    border-bottom: 1px solid #ccc;
+}
+
+.book-content .book-author, .book-content .book-price, .book-content .book-press, .book-content .book-description {
+    padding: 10px 0;
+    border-bottom: 1px solid #ccc;
+}
+
+.book-content .book-price #money {
+    color: red;
+}
+
+.book-content .book-author span:first-child, .book-content .book-price span:first-child, .book-content .book-press span:first-child {
+    padding: 3px 6px;
+    background: var(--main-color);
+    border-radius: 5px;
+    margin: 0 40px 0 0;
+    color: #fff;
+    user-select: none;
+    cursor: pointer;
+}
+
+.book-content .book-price span del {
+    color: #444;
+    text-decoration: line-through;
+}
+
+.book-content .book-description {
+    line-height: 1.5rem;
+    text-justify: inter-word;
+}
+
+.book-content .book-description h5 {
+    font-size: 16px;
+}
+
+.book-content .book-description p {
+    text-indent: 2em;
+    font-size: 14px;
+    text-align: justify;
+}
+
+.book-content .add-car button {
+    outline: none;
+    border: none;
+    border-radius: .3rem;
+    height: 40px;
+    width: 120px;
+    margin: 30px 0 0 0;
+    color: rgba(255, 255, 255, .8);
+    font-size: 16px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, .2);
+    cursor: pointer;
+}
+
+.book-content .add-car button:first-child {
+    background-color: rgb(254, 115, 0, .7);
+    margin: 0 100px 0 0;
+    transition: background-color .3s;
+}
+
+.book-content .add-car button:first-child:hover {
+    background-color: rgb(254, 115, 0, 1);
+    color: #fff;
+}
+
+.book-content .add-car button:last-child {
+    background-color: rgb(255, 0, 0, .7);
+    transition: background-color .3s;
+}
+
+.book-content .add-car button:last-child:hover {
+    background-color: rgb(255, 0, 0, 1);
+    color: #fff;
+}

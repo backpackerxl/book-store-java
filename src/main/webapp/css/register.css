@@ -1,0 +1,93 @@
+.email,
+.phone {
+    width: 80%;
+    outline: none;
+    height: 35px;
+    padding: 0 15px;
+    margin: 6px 0;
+    text-align: left;
+    border: 1px solid #fe7300;
+}
+
+.username,
+.password,
+.checkout {
+    margin: 6px 0;
+}
+
+.send-email {
+    outline: none;
+    background: #fff;
+    border: .2rem solid #fe7300;
+    border-radius: .2rem;
+    height: 35px;
+    color: #fe7300;
+    line-height: 30px;
+    cursor: pointer;
+}
+
+.send-email:hover {
+    background: #fe7300;
+    color: #ffffff;
+}
+
+textarea.info {
+    outline: none;
+    padding: 10px 15px;
+    width: 80%;
+    height: 72px;
+    font-size: 14px;
+    margin: 6px 0;
+    border: 1px solid #fe7300;
+    resize: none;
+}
+
+textarea::-webkit-scrollbar { /* 滚动条整体部分 */
+    width: 10px;
+}
+
+textarea::-webkit-scrollbar-button { /* 滚动条两端的按钮 */
+    height: 0;
+    width: 10px;
+    background-color: #ccc;
+}
+
+textarea::-webkit-scrollbar-track { /* 外层轨道 */
+    background-color: #ccc;
+}
+
+textarea::-webkit-scrollbar-track-piece { /*内层轨道，滚动条中间部分 */
+    background-color: #ccc;
+}
+
+textarea::-webkit-scrollbar-thumb { /* 滑块 */
+    width: 10px;
+    border-radius: 5px;
+    background: #727272;
+}
+
+textarea::-webkit-scrollbar-corner { /* 边角 */
+    width: 10px;
+}
+
+textarea::-webkit-scrollbar-thumb:hover { /* 鼠标移入滑块 */
+    background: #fe7300;
+    cursor: pointer;
+}
+
+#register {
+    position: relative;
+}
+
+.notice {
+    color: #ccc;
+}
+
+.notice p {
+    margin-top: -47px;
+    font-size: 14px;
+}
+
+.notice p img {
+    width: 18px;
+}

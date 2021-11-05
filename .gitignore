@@ -1,0 +1,6 @@
+##ignore this file##
+/target/
+.idea
+
+##filter databfile jar##
+*.jar
