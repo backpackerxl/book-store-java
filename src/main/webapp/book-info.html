@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>书城首页</title>
+    <title>书籍详情页</title>
     <link rel="shortcut icon" href="./img/book.png" type="image/png">
     <link rel="stylesheet" href="./css/nav-footer.css">
     <link rel="stylesheet" href="./css/book-shop.css">
@@ -46,7 +46,7 @@
                 <a href="#">文学</a>
                 <a href="#">生活</a>
                 <a href="#">计算机</a>
-                <a href="#">外语</a>
+                <a href="#" class="active">外语</a>
                 <a href="#">经管</a>
                 <a href="#">励志</a>
                 <a href="#">社科</a>
@@ -79,13 +79,13 @@
                     $("#menu-pop").hide(100);
                 }
             })
-        })
-        $(window).bind("scroll", () => {
-            if ($(document).scrollTop() >= 100) {
-                $("#middle-nav").css({ "position": "fixed", "top": 0, "width": "100%" })
-            } else {
-                $("#middle-nav").removeAttr("style")
-            }
+            $(window).bind("scroll", () => {
+                if ($(document).scrollTop() >= 100) {
+                    $("#middle-nav").css({ "position": "fixed", "top": 0, "width": "100%" })
+                } else {
+                    $("#middle-nav").removeAttr("style")
+                }
+            })
         })
     </script>
 
@@ -155,11 +155,62 @@
                     </div>
                 </div>
             </div>
+            <div class="compents">
+                <h4 id="return-master"><i class="fa fa-commenting-o"></i>用户评价</h4>
+                <div class="add-compents">
+                    <div id="img-user" class="user-img">
+                        <img src="./img/man.png">
+                    </div>
+                    <textarea id="compents-input" placeholder="请使用文明用语，谢谢" maxlength="1000"></textarea>
+                    <button>提交</button>
+                </div>
+                <!-- <div class="compents-box">
+                    <div class="compents-img">
+                        <img src="./img/elyse.png">
+                    </div>
+                    <div class="compents-content">
+                       <p>backpackerxl</p>
+                       <p>for every developer who loves javascript ,this book is very good !for every developer who loves javascript ,this book is very good !</p>
+                       <p>
+                           <span><i class="fa fa-calendar-minus-o"></i>2021-11-5</span>
+                           <b data-index=1 id="more-compents">更多</b>
+                           <a data-index=1 id="reply-compents" href="javascript:;">回复</a>
+                        </p>
+                    </div>
+                </div> -->
+            </div>
         </div>
     </div>
     <footer>
         <p>eSHOP图书商城 &copy; <a href="http://gitee.com/backpackerxl">Gitee Backpackerxl</a></p>
     </footer>
+    <div id="up-to-top">
+        <i class="fa fa-arrow-up"></i>
+    </div>
+    <script>
+        $(function () {
+            let newtop;
+            $(window).bind("scroll", function () {
+                if ($(document).scrollTop() >= 100) {
+                    $("#up-to-top").show(50)
+                } else {
+                    $("#up-to-top").hide(50)
+                }
+            })
+            $('#up-to-top').click(function () {
+                const timer = setInterval(function () {
+                    newtop = $(document).scrollTop();
+                    if ($(document).scrollTop() == 0) {
+                        clearInterval(timer);
+                    } else {
+                        var a = $(document).scrollTop(newtop - 20);
+                    }
+                }, 10);
+
+            });
+        })
+    </script>
+    <script src="./js/compements.js" type="module"></script>
 </body>
 
 </html>

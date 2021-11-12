@@ -115,7 +115,7 @@ nav .middle {
     justify-content: space-between;
     align-items: center;
     box-shadow: 0px 2px 6px rgba(0, 0, 0, .2);
-    z-index: 1;
+    z-index: 2;
 }
 
 nav .middle ul {
@@ -123,13 +123,21 @@ nav .middle ul {
 }
 
 nav .middle ul a {
-    padding: .3rem .5rem;
+    padding: .5rem .5rem;
+    color: rgb(255, 255, 255, .8);
+    transition: background .2s ease-in;
+}
+
+nav .middle ul a.active{
+    background: rgba(0, 0, 0, .1);
     color: #fff;
+    border-radius: .25rem;
 }
 
 nav .middle ul a:hover {
-    background: rgba(0, 0, 0, 0.15);
-    border-radius: .2rem;
+    background: rgba(0, 0, 0, .1);
+    color: #fff;
+    border-radius: .25rem;
 }
 
 nav .middle .user img {
@@ -158,7 +166,7 @@ nav .middle .user #menu-pop {
     background: #fe7300;
     right: -60px;
     top: 50px;
-    height: 70px;
+    height: 80px;
     border-bottom-left-radius: 5px;
     text-align: center;
     border-bottom-right-radius: 5px;
@@ -166,7 +174,7 @@ nav .middle .user #menu-pop {
 }
 
 nav .middle .user #menu-pop a {
-    line-height: 30px;
+    line-height: 40px;
 }
 
 footer {
@@ -185,4 +193,24 @@ footer p a {
 
 footer p a:hover {
     color: #fff;
+}
+
+#up-to-top{
+    position: fixed;
+    bottom: 80px;
+    right: 30px;
+    background: var(--main-color);
+    height: 35px;
+    width: 35px;
+    opacity: .7;
+    text-align: center;
+    line-height: 35px;
+    color: #fff;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, .2);
+    cursor: pointer;
+    display: none;
+}
+
+#up-to-top:hover{
+    opacity: 1;
 }

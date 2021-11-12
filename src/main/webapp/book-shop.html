@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>书城首页</title>
+    <title>书籍列表业</title>
     <link rel="shortcut icon" href="./img/book.png" type="image/png">
     <link rel="stylesheet" href="./css/nav-footer.css">
     <link rel="stylesheet" href="./css/book-shop.css">
@@ -78,13 +78,13 @@
                     $("#menu-pop").hide(100);
                 }
             })
-        })
-        $(window).bind("scroll", () => {
-            if ($(document).scrollTop() >= 100) {
-                $("#middle-nav").css({ "position": "fixed", "top": 0, "width": "100%" })
-            } else {
-                $("#middle-nav").removeAttr("style")
-            }
+            $(window).bind("scroll", () => {
+                if ($(document).scrollTop() >= 100) {
+                    $("#middle-nav").css({ "position": "fixed", "top": 0, "width": "100%" })
+                } else {
+                    $("#middle-nav").removeAttr("style")
+                }
+            })
         })
     </script>
 
@@ -248,6 +248,32 @@
     <footer>
         <p>eSHOP图书商城 &copy; <a href="http://gitee.com/backpackerxl">Gitee Backpackerxl</a></p>
     </footer>
+    <div id="up-to-top">
+        <i class="fa fa-arrow-up"></i>
+    </div>
+    <script>
+        $(function () {
+            let newtop;
+            $(window).bind("scroll", function () {
+                if ($(document).scrollTop() >= 100) {
+                    $("#up-to-top").show(50)
+                } else {
+                    $("#up-to-top").hide(50)
+                }
+            })
+            $('#up-to-top').click(function () {
+                const timer = setInterval(function () {
+                    newtop = $(document).scrollTop();
+                    if ($(document).scrollTop() == 0) {
+                        clearInterval(timer);
+                    } else {
+                        var a = $(document).scrollTop(newtop - 20);
+                    }
+                }, 10);
+
+            });
+        })
+    </script>
 </body>
 
 </html>
