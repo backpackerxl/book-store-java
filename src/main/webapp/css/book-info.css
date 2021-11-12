@@ -1,3 +1,7 @@
+body {
+    transition: height .5s ease-in;
+}
+
 .porduct-book {
     display: flex;
     justify-content: space-evenly;
@@ -257,7 +261,17 @@ textarea::-webkit-scrollbar-thumb:hover {
 }
 
 .compents #replay-input {
-    margin: 0px 0 0 60px;
-    width: 45%;
-    position: absolute;
+    margin: 0 0 0 60px;
+    width: 90%;
+    animation: top-down .3s ease-in;
+    transition: opacity .3s ease;
+}
+
+@keyframes top-down {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
 }

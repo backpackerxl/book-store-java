@@ -1,3 +1,8 @@
+/**
+ * 为数组对象新增一个remove方法，方便数组数据的删除操作
+ * @param {要删除的目标值} target 
+ * @returns 返回一个被过滤掉的数组对象
+ */
 Array.prototype.remove = function (target) {
     return this.filter(item => item !== target)
 }
@@ -9,6 +14,9 @@ class Comment {
     constructor(comment) {
         this._comment = comment;
     }
+    /**
+     * 对原始数据进行初步的分类处理
+     */
     map() {
         this._comment
             .filter(comment => comment.parent_comment_id === null)
@@ -19,6 +27,9 @@ class Comment {
         this.childrenArray = this._comment
             .filter(comment => comment.parent_comment_id !== null);
     }
+    /**
+     * 对分类好的数据进行统计处理
+     */
     reduce() {
         //先找出第一级回复
         for (const child_comment of this.childrenArray) {
@@ -43,6 +54,10 @@ class Comment {
             }
         }
     }
+    /**
+     * 调用方法进行数据处理
+     * @returns 返回评论模块的数据模型
+     */
     mapReduce() {
         this.map();
         this.reduce();

@@ -98,6 +98,12 @@ $(function () {
         "product_id": 2,
         "parent_comment_id": 11
     }];
+    /**
+     * 显示回复模块
+     * @param {*用户头像} img_user 
+     * @param {*待回复人的姓名} index 
+     * @param {*回复模块要显示的位置} position 
+     */
     function showReplay(img_user, index, position) {
         const templ = `
                         <div id="replay-input">
@@ -110,12 +116,16 @@ $(function () {
                                 </div>
                         </div>`
         $('.compents #replay-input').remove();
-        $('.compents').append(templ)
-        $(".compents #replay-input").css("top", position)
+        position.append(templ)
         $("#close-replay").click(function () {
-            $('.compents #replay-input').remove();
+            $('.compents-box #replay-input').slideUp(90,function(){
+                $(this).remove();
+            });
         })
     }
+    /**
+     * 用返回的评论模块的数据模型，来驱动评论信息的视图渲染
+     */
     function showCompements() {
         new Comment(replayCompement).mapReduce().forEach(compemnet => {
             const templmaster = `<div class="compents-box">
@@ -127,7 +137,7 @@ $(function () {
                                          <p>${compemnet.content}</p>
                                          <p>
                                             <span><i class="fa fa-calendar-minus-o"></i>${compemnet.createTime}</span>
-                                            ${compemnet.childrenComment.length > 0 ? `<b data-index=${compemnet.id} id="more-compents">— 展开${compemnet.childrenComment.length}条回复 <i class="fa fa-caret-down"></i></b>` : ''}
+                                            ${compemnet.childrenComment.length > 0 ? `<b id="more-compents">— 展开${compemnet.childrenComment.length}条回复 <i class="fa fa-caret-down"></i></b>` : ''}
                                             <a data-index=${compemnet.id} id="reply-compents" href="javascript:;">回复</a>
                                          </p>
                                     </div>
@@ -138,23 +148,27 @@ $(function () {
                                 </div>`
             $(".compents").append(templmaster)
         })
-        $(".compents #child-compents").each(function () {
-            const compement = $(this).children()
-            $(this).empty();
-            $(this).append(compement)
-        });
+        /**
+         * 回复按钮的点击事件
+         */
         $(".compents #reply-compents, #child-compents #reply-compents-child").click(function (e) {
             const img_user = $("#img-user img").attr('src')
             const index = parseInt(e.target.dataset.index) - 1
-            showReplay(img_user, index, e.pageY)
+            showReplay(img_user, index, $(this).parent().parent().parent())
         })
     }
-    showCompements()
+    showCompements() //调用显示评论信息的函数，进行渲染评论信息视图
+    /**
+     * 
+     * @param {*子级评论数组} childArray 
+     * @param {*父级评论的id} selectIndex 
+     * @returns 以文档碎片的形式返回一个子级评论的html元素的字符串
+     */
     function showChildCompement(childArray, selectIndex) {
-        let childFragment = []
+        let childFragment = ''
         childArray.forEach(comment => {
             const resname = comment.parent_comment_id === selectIndex ? "" : `@${replayCompement[comment.parent_comment_id - 1].name}`
-            const templ = `<div class="compents-box">
+            childFragment += `<div class="compents-box">
             <div class="compents-img">
                  <img src=${comment.user_img}>
             </div>
@@ -167,19 +181,23 @@ $(function () {
                  </p>
             </div>
         </div>`
-            childFragment.push(templ)
         })
         return childFragment;
     }
-    $(".compents-box #more-compents").click(function (e) {
-        const index = parseInt(e.target.dataset.index) - 1
-        $(".compents-box #child-compents").each(function (item) {
-            if ($(this).is(":hidden") && item == index) {
-                $(this).slideDown(200)
-            } else {
-                $(this).slideUp(200)
-            }
-        })
+    /**
+     * 显示或隐藏子级评论信息
+     */
+    $(".compents-box #more-compents").click(function () {
+        const childnode = $(this).parent().parent().next();
+        if(childnode.is(':hidden')){
+            childnode.slideDown(200)
+            const upInfo = $(this).html().replace('展开','收起').replace('fa-caret-down','fa-caret-up');
+            $(this).html(upInfo);
+        }else{
+            childnode.slideUp(200)
+            const downInfo = $(this).html().replace('收起','展开').replace('fa-caret-up','fa-caret-down');
+            $(this).html(downInfo);
+        }
     })
 });
 
