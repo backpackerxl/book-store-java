@@ -118,6 +118,13 @@ body, html {
     border-radius: 6px;
     overflow: hidden;
     cursor: pointer;
+    transition: all .3s;
+    overflow: hidden;
+    margin-bottom: 20px;
+}
+
+.productlist-right .book-img-warp .box:hover{
+    transform: translateY(-10px);
 }
 
 .productlist-right .book-img-warp .box .image {
