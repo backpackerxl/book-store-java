@@ -7,9 +7,18 @@
 ### The following is the rendering display
 - index page
 
-
+![](./src/main/webapp/img/index.png)
 
 - info page
 
+![](./src/main/webapp/img/book-info.png)
+
+- shop page
+
+![](./src/main/webapp/img/book-shop.png)
+
 
 - car page
+
+![](./src/main/webapp/img/book-car.png)
+
