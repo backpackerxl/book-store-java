@@ -2,7 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
 <head>
-    <title>500-ServiceError</title>
+    <title>500服务器罢工了</title>
     <link rel="shortcut icon" href="<c:url value="/img/book.png" />" type="image/png">
     <style>
         body {
@@ -12,6 +12,9 @@
             align-items: center;
             justify-content: center;
             height: 100vh;
+        }
+        .container img{
+            width: 510px;
         }
     </style>
 </head>

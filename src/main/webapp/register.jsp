@@ -2,7 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
 <head>
-    <title>BookStore-register</title>
+    <title>书城注册</title>
     <link href="<c:url value="/css/login.css"/>" rel="stylesheet">
     <link href="<c:url value="/css/register.css"/>" rel="stylesheet">
     <link rel="shortcut icon" href="<c:url value="/img/book.png" />" type="image/png">

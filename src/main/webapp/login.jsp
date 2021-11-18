@@ -2,7 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
 <head>
-    <title>BookStore-login</title>
+    <title>书城登录</title>
     <link href="<c:url value="/css/login.css"/>" rel="stylesheet">
     <link rel="shortcut icon" href="<c:url value="/img/book.png" />" type="image/png">
     <script type="text/javascript" src="<c:url value="/js/jquery-3.6.0.min.js"/>"></script>
@@ -14,7 +14,7 @@
     </div>
     <div class="right-login">
         <form action="/book-store/user?rqType=userLogin" method="post">
-            <div class="header"><h1>登录</h1> <span>没有账号?&nbsp;&nbsp;<a href="<c:url value="/page?to=register"/>">点此注册</a></span>
+            <div class="header"><h1>登录</h1> <span>没有账号? <a href="<c:url value="/page?to=register"/>">点此注册</a></span>
             </div>
             <div class="user-box">
                 <input type="text" name="username" placeholder="用户名" class="username"/>

@@ -2,7 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
 <head>
-    <title>BookStore-forget</title>
+    <title>找回密码</title>
     <link href="<c:url value="/css/login.css"/>" rel="stylesheet">
     <link href="<c:url value="/css/register.css"/>" rel="stylesheet">
     <link rel="shortcut icon" href="<c:url value="/img/book.png" />" type="image/png">

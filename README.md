@@ -7,18 +7,18 @@
 ### The following is the rendering display
 - index page
 
-![](./src/main/webapp/img/index.png)
+![](../bstore/src/main/webapp/img/pviews/index.png)
 
 - info page
 
-![](./src/main/webapp/img/book-info.png)
+![](../bstore/src/main/webapp/img/pviews/book-info.png)
 
 - shop page
 
-![](./src/main/webapp/img/book-shop.png)
+![](../bstore/src/main/webapp/img/pviews/book-shop.png)
 
 
 - car page
 
-![](./src/main/webapp/img/book-car.png)
+![](../bstore/src/main/webapp/img/pviews/book-car.png)
 
