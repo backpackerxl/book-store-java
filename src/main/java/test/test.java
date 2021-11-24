@@ -5,28 +5,53 @@ package test;
  * @filename: LoginServlet
  **/
 
+import cn.backpackerxl.entity.Book;
 import cn.backpackerxl.entity.User;
+import cn.backpackerxl.service.BookService;
 import cn.backpackerxl.service.UserService;
+import cn.backpackerxl.service.impl.BookUserServiceImp;
 import cn.backpackerxl.service.impl.UserServiceImp;
-import cn.backpackerxl.servlet.SendEmailServlet;
 import cn.backpackerxl.util.DButils;
 import cn.backpackerxl.util.StringToJSON;
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
 import org.junit.Test;
 
-import java.io.InputStream;
-import java.net.Inet4Address;
+import java.io.*;
 import java.net.InetAddress;
-import java.net.URL;
 import java.net.UnknownHostException;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.text.DateFormat;
 import java.util.Date;
 import java.util.List;
 
+import static cn.backpackerxl.util.MD5Utils.code;
+
+
 public class test {
+
+    @Test
+    public void updata() {
+        UserService service = new UserServiceImp();
+        User user = new User();
+        user = service.findByName("admin");
+        System.out.println(user);
+        user.setPasswd("123456");
+        int i = service.UpdataUser(user);
+        System.out.println(i);
+        if (i == 0) {
+            System.out.println("修改失败");
+        }
+    }
+
+    public String login() {
+        return "login";
+    }
+
+    public static void main(String[] args) {
+        test t = new test();
+        t.login();
+    }
 
     @Test
     public void testConon() throws SQLException {
@@ -122,8 +147,9 @@ public class test {
             System.out.println(num[i][0] + "\t" + num[i][1] + "\t" + num[i][2]);
         }
     }
+
     @Test
-    public void banner(){
+    public void banner() {
         String banner = " \033[36m____\033[0m                   \033[33m_\033[0m                            \033[33m _\033[0m                          \033[33m _ \033[0m\n" +
                 "\033[36m| __ )    \033[0m\033[31m__ _    \033[0m\033[32m___  \033[0m\033[33m| | __  \033[0m\033[34m_ __     \033[0m\033[31m__ _    \033[0m\033[32m___  \033[0m\033[33m| | __   \033[0m\033[35m___   \033[0m\033[36m_ __  \033[0m\033[32m__  __ \033[0m\033[33m| |\033[0m\n" +
                 "\033[36m|  _ \\   \033[0m\033[31m/ _` |  \033[0m\033[32m/ __| \033[0m\033[33m| |/ / \033[0m\033[34m| '_ \\   \033[0m\033[31m/ _` |  \033[0m\033[32m/ __| \033[0m\033[33m| |/ /  \033[0m\033[35m/ _ \\ \033[0m\033[36m| '__| \033[0m\033[32m\\ \\/ / \033[0m\033[33m| |\033[0m\n" +
@@ -133,6 +159,7 @@ public class test {
 
         System.out.println(banner);
     }
+
     @Test
     public void select() {
         UserService userService = new UserServiceImp();
@@ -143,9 +170,28 @@ public class test {
             }
         });
     }
-    @Test
-    public void Url(){
-        InputStream in = this.getClass().getResourceAsStream("/druid.properties");
 
+    public void update(String code, int id) throws SQLException {
+        String sql = "update t_book set book_code=? where id = ?";
+        Connection connection = DButils.getConnection();
+        PreparedStatement preparedStatement = connection.prepareStatement(sql);
+        preparedStatement.setNString(1, code);
+        preparedStatement.setInt(2, id);
+        int i = preparedStatement.executeUpdate();
+        System.out.println(i);
+    }
+    @Test
+    public void Url() throws SQLException {
+//        InputStream in = this.getClass().getResourceAsStream("/druid.properties");
+        for (int i = 49; i < 50; i++) {
+            this.update(code(String.valueOf(Math.PI*Math.random())), i);
+        }
+    }
+
+    @Test
+    public void getBookList(){
+        BookService bookService = new BookUserServiceImp();
+        List<Book> bookList = bookService.recommendBook(5);
+        System.out.println(bookList);
     }
 }

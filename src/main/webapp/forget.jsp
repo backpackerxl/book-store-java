@@ -17,10 +17,10 @@
         </div>
     </div>
     <div class="right-login">
-        <form action="/book-store/user?rqType=userForget" method="post">
+        <form action="<c:url value="/user?rqType=userForget"/>" method="post">
             <div class="header"><h1>找回密码</h1></div>
             <div class="user-box">
-                <input type="text" name="username" placeholder="用户名" class="username"/>
+                <input type="text" name="username" placeholder="邮箱号" class="username"/>
             </div>
             <div class="pass-box">
                 <input type="password" name="password" placeholder="新密码" class="password">
@@ -33,7 +33,7 @@
             <br/>
             <input type="submit" class="submit" value="修改">
             <br/>
-            <a href="<c:url value="/page?to=login"/>" class="reset">已有帐号，去登录.</a>
+            <a href="<c:url value="/login"/>" class="reset">已有帐号，去登录.</a>
         </form>
     </div>
 </div>

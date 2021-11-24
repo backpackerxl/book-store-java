@@ -13,8 +13,8 @@
         <img src="<c:url value="/img/login.png" />"/>
     </div>
     <div class="right-login">
-        <form action="/book-store/user?rqType=userLogin" method="post">
-            <div class="header"><h1>登录</h1> <span>没有账号? <a href="<c:url value="/page?to=register"/>">点此注册</a></span>
+        <form action="<c:url value="/user?rqType=userLogin"/> " method="post">
+            <div class="header"><h1>登录</h1> <span>没有账号? <a href="<c:url value="/register"/>">点此注册</a></span>
             </div>
             <div class="user-box">
                 <input type="text" name="username" placeholder="用户名" class="username"/>
@@ -29,14 +29,14 @@
             </div>
             <br/>
             <input type="submit" class="submit" value="登录"><br/>
-            <a href="<c:url value="/page?to=forget"/>" class="reset">已有帐号，忘记密码?</a>
+            <a href="<c:url value="/forget"/>" class="reset">已有帐号，忘记密码?</a>
         </form>
     </div>
 </div>
 <script type="module" src="<c:url value="/js/checkLogin.js"/>"></script>
 <script type="text/javascript">
     $("#refluse, #verificationcode").on("click", () => {
-        $("#verificationcode").attr("src", "/book-store/verificationcode" + "?" + Math.random())
+        $("#verificationcode").attr("src", "/bstore/verificationcode" + "?" + Math.random())
     })
     let info = '<%=request.getParameter("error")%>'
     const pageinfo = `<div id="error-msg" style="animation: .6s forword ease-in;">

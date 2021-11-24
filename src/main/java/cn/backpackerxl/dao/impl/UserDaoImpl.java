@@ -129,17 +129,11 @@ public class UserDaoImpl implements UserDao {
     public int UpdataUser(User user) {
         int i = 0;
         try {
-            String sql = "update t_user set name=?, passwd=?, phone=?, email=?, info=?, user_img=?, user_money=? where id = ?";
+            String sql = "update t_user set passwd=? where id = ?";
             connection = DButils.getConnection();
             preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.setNString(1, user.getName());
-            preparedStatement.setNString(2, user.getPasswd());
-            preparedStatement.setNString(3, user.getPhone());
-            preparedStatement.setNString(4, user.getEmail());
-            preparedStatement.setNString(5, user.getInfo());
-            preparedStatement.setNString(6, user.getUserImg());
-            preparedStatement.setDouble(7, user.getUserMoney());
-            preparedStatement.setInt(8, user.getId());
+            preparedStatement.setNString(1, user.getPasswd());
+            preparedStatement.setInt(2, user.getId());
             i = preparedStatement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();

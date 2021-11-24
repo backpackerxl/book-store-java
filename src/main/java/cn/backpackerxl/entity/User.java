@@ -1,10 +1,12 @@
 package cn.backpackerxl.entity;
 
+
 /**
  * @author: backpackerxl
  * @create: 2021/10/28
  * @filename: User
  **/
+
 public class User {
     private int id;
     private String name;

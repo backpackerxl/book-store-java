@@ -22,8 +22,6 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.text.DateFormat;
-import java.util.Date;
 import java.util.List;
 
 import static cn.backpackerxl.util.MD5Utils.code;
@@ -116,16 +114,15 @@ public class UserServlet extends HttpServlet {
             session.removeAttribute("setRegisterEmailCode");
             int blog = userService.registerUser(user);
             if (blog == 0) {
-                response.sendRedirect("/book-store/page?to=register&error=service");
+                response.sendRedirect(request.getContextPath()+"/register?error=service");
             } else {
-                response.sendRedirect("/book-store/page?to=login");
-                String nowTime = DateFormat.getDateTimeInstance(DateFormat.MEDIUM, DateFormat.MEDIUM).format(new Date());
-                String content = "尊敬的：" + username + "您好，您于" + nowTime + "成功注册了Backpackerxl书城帐号，恭喜您正式加入我们。希望我们的服务，能让您十分满意。\nBackpackerxl账户团队";
+                response.sendRedirect(request.getContextPath()+"/login");
+                String content = "<div style=\"width: 100%;box-sizing: border-box;box-shadow: 0 0.5em 1em -0.125em rgba(10 10 10/10%), 0 0 0 1px rgba(10 10 10/2%);border-radius: 5px;padding: 1.5rem;margin: 10px auto; text-align: center; \"><img class=\"book-store\"src=\"https://backpackerxl.gitee.io/image/img/sendEmailBook.png\"><span style=\"display: block;width: 100%;background: #fe7200;padding: 8px;border-radius: .25rem;color: #fff;box-shadow: 0 0.5em 1em -0.125em rgba(254 115 0/70%), 0 0 0 1px rgba(254 115 0/10%);\">bStore书城提醒您</span><p style=\"color: #333;line-height: 1.5rem;\">尊敬的"+user.getName()+",您已经在书城成功注册了一个帐号。如有疑问请联系<a style=\"color: #fe7300;\"href=\"https://gitee.com/backpackerxl/image/issues\">bStore支持团队</a></p><div style=\"display: grid;justify-items: center; line-height: 1.5rem;\"><img style=\"width: 64px;\"src=\"https://backpackerxl.gitee.io/image/img/logo.png\"><span>bStore账户团队</span><span><a style=\"color: #fe7300;\"href=\"https://gitee.com/backpackerxl\"><img style=\"width: 25px;\"src=\"https://backpackerxl.gitee.io/image/img/gitee.png\"></a>&nbsp;&nbsp;&nbsp;&nbsp;<a style=\"color: #fe7300;\"href=\"https://github.com/Backpackerxl\"><img style=\"width: 25px;\"src=\"https://backpackerxl.gitee.io/image/img/github.png\"></a></span></div></div>";
                 SendEmailInfoUser(email, "Backpackerxl 书城", content, email);
                 userList.clear();
             }
         } else {
-            response.sendRedirect("/book-store/page?to=register&error=code");
+            response.sendRedirect(request.getContextPath()+"/register?error=code");
         }
     }
 
@@ -141,7 +138,7 @@ public class UserServlet extends HttpServlet {
         String checkcode = request.getParameter("checkcode");
         User user = new User();
         for (User user1 : userList) {
-            if (username.equals(user1.getName())) {
+            if (username.equals(user1.getEmail())) {
                 user = user1;
                 break;
             }
@@ -151,16 +148,15 @@ public class UserServlet extends HttpServlet {
             user.setPasswd(code(password));
             int target = userService.UpdataUser(user);
             if (target == 0) {
-                response.sendRedirect("/book-store/page?to=forget&error=service");
+                response.sendRedirect(request.getContextPath()+"/forget?error=service");
             } else {
-                response.sendRedirect("/book-store/page?to=login");
-                String nowTime = DateFormat.getDateTimeInstance(DateFormat.MEDIUM, DateFormat.MEDIUM).format(new Date());
-                String content = "尊敬的：" + user.getName() + "您好，您在" + nowTime + "重置了您的书城帐号密码，若非本人操作，请速与平台联系！\nBackpackerxl账户团队";
+                response.sendRedirect(request.getContextPath()+"/login");
+                String content = "<div style=\"width: 100%;box-sizing: border-box;box-shadow: 0 0.5em 1em -0.125em rgba(10 10 10/10%), 0 0 0 1px rgba(10 10 10/2%);border-radius: 5px;padding: 1.5rem;margin: 10px auto; text-align: center; \"><img class=\"book-store\"src=\"https://backpackerxl.gitee.io/image/img/sendEmailBook.png\"><span style=\"display: block;width: 100%;background: #fe7200;padding: 8px;border-radius: .25rem;color: #fff;box-shadow: 0 0.5em 1em -0.125em rgba(254 115 0/70%), 0 0 0 1px rgba(254 115 0/10%);\">bStore书城提醒您</span><p style=\"color: #333;line-height: 1.5rem;\">尊敬的"+user.getName()+",您已经在书城成功找回了您的帐号。如有疑问请联系<a style=\"color: #fe7300;\"href=\"https://gitee.com/backpackerxl/image/issues\">bStore支持团队</a></p><div style=\"display: grid;justify-items: center; line-height: 1.5rem;\"><img style=\"width: 64px;\"src=\"https://backpackerxl.gitee.io/image/img/logo.png\"><span>bStore账户团队</span><span><a style=\"color: #fe7300;\"href=\"https://gitee.com/backpackerxl\"><img style=\"width: 25px;\"src=\"https://backpackerxl.gitee.io/image/img/gitee.png\"></a>&nbsp;&nbsp;&nbsp;&nbsp;<a style=\"color: #fe7300;\"href=\"https://github.com/Backpackerxl\"><img style=\"width: 25px;\"src=\"https://backpackerxl.gitee.io/image/img/github.png\"></a></span></div></div>";
                 SendEmailInfoUser(user.getEmail(), "Backpackerxl 书城", content, user.getEmail());
                 userList.clear();
             }
         } else {
-            response.sendRedirect("/book-store/page?to=forget&error=code");
+            response.sendRedirect(request.getContextPath()+"/forget?error=code");
         }
     }
 
@@ -178,7 +174,7 @@ public class UserServlet extends HttpServlet {
         userService = new UserServiceImp();
         User user = userService.findByName(username);
         if (user == null) {
-            response.sendRedirect("/book-store/page?to=login&error=yes");
+            response.sendRedirect(request.getContextPath()+"/login?error=yes");
             return;
         }
         if (user.getPasswd().equals(code(password)) && checkcode.equals(session.getAttribute("checkLoginCode"))) {
@@ -187,10 +183,23 @@ public class UserServlet extends HttpServlet {
             session.setAttribute("username", user.getName());
             session.setAttribute("userid", user.getId());
             session.setAttribute("userImg", user.getUserImg());
-            response.sendRedirect("/book-store/page?to=index");
+            response.sendRedirect(request.getContextPath());
         } else {
-            response.sendRedirect("/book-store/page?to=login&error=yes");
+            response.sendRedirect(request.getContextPath()+"/login?error=yes");
         }
+    }
+
+    /**
+     * 用户退出
+     * @param request
+     * @param response
+     * @throws IOException
+     */
+    public void loginOut(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        session.removeAttribute("username");
+        session.removeAttribute("userid");
+        session.removeAttribute("userImg");
+        response.sendRedirect(request.getContextPath());
     }
 
     @Override

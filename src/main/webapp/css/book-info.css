@@ -12,7 +12,6 @@ body {
     height: 320px;
     margin: 50px 0 0 0;
     box-sizing: border-box;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, .2);
     border-radius: 6px;
     overflow: hidden;
 }

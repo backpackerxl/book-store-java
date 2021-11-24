@@ -20,7 +20,6 @@ import static cn.backpackerxl.util.SendEmail.SendEmailInfoUser;
 @WebServlet(name = "SendEmailServlet", value = "/sendemail")
 public class SendEmailServlet extends HttpServlet {
     private String sendAddress = null;
-    private String username;
     private String sendType;
     private String title;
     private String content;
@@ -47,15 +46,15 @@ public class SendEmailServlet extends HttpServlet {
     private void sendRegisterCode(HttpServletRequest request, HttpServletResponse response) throws IOException {
         sendAddress = request.getParameter("sendTypeName");
         sendType = request.getParameter("sendType");
-        title = "Backpackerxl 书城";
+        title = "验证码";
         verificationCode = new String(getVerificationCode());
         session.setAttribute("setRegisterEmailCode", verificationCode);
-        content = "您好，您正在注册书城帐号，您的验证码是：" + verificationCode + "请尽快填写，若未请求可能是别人错填了您的邮箱，请忽略此邮件谢谢！\nBackpackerxl账户团队";
+        content = "<div style=\"width: 100%;box-sizing: border-box;box-shadow: 0 0.5em 1em -0.125em rgba(10 10 10/10%), 0 0 0 1px rgba(10 10 10/2%);border-radius: 5px;padding: 1.5rem;margin: 10px auto; text-align: center; \"><img class=\"book-store\"src=\"https://backpackerxl.gitee.io/image/img/sendEmailBook.png\"><h1 style=\"color: #333;line-height: 1.5rem;\">你的验证码：" + verificationCode + "</h1><p style=\"color: #333;line-height: 1.5rem;\">你好，请在10分钟内输入" + verificationCode + "以认证电子邮件。</p><span style=\"display: block;width: 100%;background: #fe7200;padding: 8px;border-radius: .25rem;color: #fff;box-shadow: 0 0.5em 1em -0.125em rgba(254 115 0/70%), 0 0 0 1px rgba(254 115 0/10%);\">bStore书城提醒您</span><p style=\"color: #333;line-height: 1.5rem;\">此封电子邮件是用于验证你在书城上的注册操作。误收到此邮件?请联系<a style=\"color: #fe7300;\"href=\"https://gitee.com/backpackerxl/image/issues\">bStore支持团队</a></p><div style=\"display: grid;justify-items: center; line-height: 1.5rem;\"><img style=\"width: 64px;\"src=\"https://backpackerxl.gitee.io/image/img/logo.png\"><span>bStore账户团队</span><span><a style=\"color: #fe7300;\"href=\"https://gitee.com/backpackerxl\"><img style=\"width: 25px;\"src=\"https://backpackerxl.gitee.io/image/img/gitee.png\"></a>&nbsp;&nbsp;&nbsp;&nbsp;<a style=\"color: #fe7300;\"href=\"https://github.com/Backpackerxl\"><img style=\"width: 25px;\"src=\"https://backpackerxl.gitee.io/image/img/github.png\"></a></span></div></div>";
         try {
             SendEmailInfoUser(sendAddress, title, content, sendAddress);
-            jsonInfo = new StringToJSON("info", "😀 您的邮件已发送，请注意查收，请勿频繁发送，谢谢！").toJSON();
+            jsonInfo = new StringToJSON("info", "✔ 您的邮件已发送，请注意查收，请勿频繁发送，谢谢！").toJSON();
         } catch (MessagingException e) {
-            jsonInfo = new StringToJSON("info", ":) 您的邮件发送失败，请60s后重新发送，谢谢！").toJSON();
+            jsonInfo = new StringToJSON("info", "❌ 您的邮件发送失败，请60s后重新发送，谢谢！").toJSON();
             e.printStackTrace();
         }
         response.getWriter().append(jsonInfo);
@@ -63,28 +62,28 @@ public class SendEmailServlet extends HttpServlet {
 
     private void sendForgetCode(HttpServletRequest request, HttpServletResponse response) throws IOException {
         List<User> userList = userService.findByAll();
-        username = request.getParameter("sendTypeName");
+        sendAddress = request.getParameter("sendTypeName");
         int tag = 0;
         for (User user : userList) {
-            if (username.equals(user.getName())) {
+            if (sendAddress.equals(user.getEmail())) {
                 tag = 1;
                 sendAddress = user.getEmail();
-                title = "Backpackerxl 书城";
+                title = "验证码";
                 verificationCode = new String(getVerificationCode());
+                content = "<div style=\"width: 100%;box-sizing: border-box;box-shadow: 0 0.5em 1em -0.125em rgba(10 10 10/10%), 0 0 0 1px rgba(10 10 10/2%);border-radius: 5px;padding: 1.5rem;margin: 10px auto; text-align: center; \"><img class=\"book-store\"src=\"https://backpackerxl.gitee.io/image/img/sendEmailBook.png\"><h1 style=\"color: #333;line-height: 1.5rem;\">你的验证码：" + verificationCode + "</h1><p style=\"color: #333;line-height: 1.5rem;\">你好，请在10分钟内输入" + verificationCode + "以认证电子邮件。</p><span style=\"display: block;width: 100%;background: #fe7200;padding: 8px;border-radius: .25rem;color: #fff;box-shadow: 0 0.5em 1em -0.125em rgba(254 115 0/70%), 0 0 0 1px rgba(254 115 0/10%);\">bStore书城提醒您</span><p style=\"color: #333;line-height: 1.5rem;\">此封电子邮件是用于验证你在书城上的找回密码操作。误收到此邮件?请联系<a style=\"color: #fe7300;\"href=\"https://gitee.com/backpackerxl/image/issues\">bStore支持团队</a></p><div style=\"display: grid;justify-items: center; line-height: 1.5rem;\"><img style=\"width: 64px;\"src=\"https://backpackerxl.gitee.io/image/img/logo.png\"><span>bStore账户团队</span><span><a style=\"color: #fe7300;\"href=\"https://gitee.com/backpackerxl\"><img style=\"width: 25px;\"src=\"https://backpackerxl.gitee.io/image/img/gitee.png\"></a>&nbsp;&nbsp;&nbsp;&nbsp;<a style=\"color: #fe7300;\"href=\"https://github.com/Backpackerxl\"><img style=\"width: 25px;\"src=\"https://backpackerxl.gitee.io/image/img/github.png\"></a></span></div></div>";
                 session.setAttribute("setForgetEmailCode", verificationCode);
-                content = "尊敬的：" + user.getName() + "，您正在重置您的密码，您的验证码是：" + verificationCode + "请尽快填写，若未请求可能是别人错填了您的邮箱，请忽略此邮件谢谢！\nBackpackerxl账户团队";
                 try {
-                    SendEmailInfoUser(sendAddress, title, content, sendAddress);
-                    jsonInfo = new StringToJSON("info", "😀 您的邮件已发送，请注意查收，请勿频繁发送，谢谢！").toJSON();
+                    SendEmailInfoUser(sendAddress,title,content,sendAddress);
+                    jsonInfo = new StringToJSON("info", "✔ 您的邮件已发送，请注意查收，请勿频繁发送，谢谢！").toJSON();
                 } catch (MessagingException e) {
-                    jsonInfo = new StringToJSON("info", ":) 您的邮件发送失败，请60s后重新发送，谢谢！").toJSON();
+                    jsonInfo = new StringToJSON("info", "❌ 您的邮件发送失败，请60s后重新发送，谢谢！").toJSON();
                     e.printStackTrace();
                 }
                 break;
             }
         }
         if (tag == 0) {
-            jsonInfo = new StringToJSON("info", ":) 此用户尚未注册，请检查您的输入！").toJSON();
+            jsonInfo = new StringToJSON("info", "❌ 此用户尚未注册，请检查您的输入！").toJSON();
         }
         response.getWriter().append(jsonInfo);
         userList.clear();

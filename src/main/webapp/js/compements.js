@@ -1,4 +1,4 @@
-import { BookComment, showReplay } from '../components/comment/index.js';
+import { BookComment, showReplay } from '../compoments/comment/index.js';
 
 $(function () {
     /**

@@ -25,7 +25,7 @@ function showError(nodename, secondnodename, blog) {
         $("#check-error").remove()
     }
     //添加错误图片，以及错误提示信息，改变输入框的样式
-    $(secondnodename).append(`<img id="check-error" src="/book-store/img/error.png">`)
+    $(secondnodename).append(`<img id="check-error" src="/bstore/img/error.png">`)
     $(nodename).attr("placeholder", `${blog}`).css({
         "background": "#fff0f0",
         "border-left": ".3rem solid #d95c5c"
@@ -50,7 +50,7 @@ function showSuccess(nodename, secondnodename) {
         $("#check-success").remove()
     }
     //添加正确图片，改变输入框的样式
-    $(secondnodename).append(`<img id="check-success" src="/book-store/img/success.png">`)
+    $(secondnodename).append(`<img id="check-success" src="/bstore/img/success.png">`)
     $(nodename).css({
         "background": "#E8F0FEFF",
         "border-left": "1px solid #fe7300"
@@ -125,7 +125,7 @@ function isCheckRegister(namenode, secondnodename) {
         }
         $.ajax({
             type: "GET",
-            url: '/book-store/user?rqType=' + obj[namenode],
+            url: '/bstore/user?rqType=' + obj[namenode],
             data: {
                 type: $.trim($(namenode).val())
             },
@@ -173,7 +173,7 @@ function sendToEmail(namenode, secondnamenode, blog, sendType) {
             }
             $.ajax({
                 type: "GET",
-                url: '/book-store/sendemail',
+                url: '/bstore/sendemail',
                 data: {
                     sendTypeName: $.trim($(namenode).val()),
                     sendType: sendType

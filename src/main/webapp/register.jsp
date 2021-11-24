@@ -18,8 +18,8 @@
         </div>
     </div>
     <div class="right-login">
-        <form style="margin: 0;" action="/book-store/user?rqType=userRegister" method="post">
-            <div class="header"><h1>注册</h1> <span>已有帐号，<a href="<c:url value="/page?to=login"/>">去登录.</a></span></div>
+        <form style="margin: 0;" action="<c:url value="/user?rqType=userRegister"/>" method="post">
+            <div class="header"><h1>注册</h1> <span>已有帐号，<a href="<c:url value="/login"/>">去登录.</a></span></div>
             <div class="user-box">
                 <input type="text" name="username" placeholder="用户名" class="username"/>
             </div>

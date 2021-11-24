@@ -27,14 +27,18 @@ $(() => {
     /**
      * 当鼠标悬停在图片上时，暂停播放，离开后又自动播放
      */
-    $("#swiper").hover(() => {
+    $("#swiper").hover((e) => {
         // over
         clearInterval(timer);
-    }, () => {
+        e.currentTarget.children[2].style="opacity: 1;"
+        e.currentTarget.children[3].style="opacity: 1;"
+    }, (e) => {
         //out
         timer = setInterval(() => {
             auto_play();
         }, 2000)
+        e.currentTarget.children[2].style="opacity: 0;"
+        e.currentTarget.children[3].style="opacity: 0;"
     });
     /**
      * 左右箭头切换的效果

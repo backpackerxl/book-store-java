@@ -50,7 +50,7 @@ public class SendEmail {
         //指明邮件的收件人
         message.setRecipient(Message.RecipientType.TO, new InternetAddress(sendAddress));
         //邮件标题
-        message.setSubject(title, "utf8");
+        message.setSubject(title, "UTF-8");
         //邮件内容
         message.setContent(content, "text/html;charset=UTF-8");
         //设置抄送人

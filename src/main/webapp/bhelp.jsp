@@ -37,9 +37,7 @@
         </div>
     </div>
 
-    <footer>
-        <p>eSHOP图书商城 &copy; <a href="http://gitee.com/backpackerxl">Gitee Backpackerxl</a></p>
-    </footer>
+    <%@include file="FooterTemplate.jsp"%>
 </body>
 
 </html>
