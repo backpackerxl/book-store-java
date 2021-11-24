@@ -78,12 +78,74 @@
         <div id="compents" class="compents">
             <h4 id="return-master"><i class="fa fa-commenting-o"></i>用户评价</h4>
             <div class="add-compents">
-                <div id="img-user" class="user-img">
-                    <img src="<c:url value="/img/buser/man.png/man.png"/>">
-                </div>
-                <textarea id="compents-input" placeholder="请使用文明用语，谢谢" maxlength="1000"></textarea>
-                <button>提交</button>
+                <c:choose>
+                    <c:when test="${ sessionScope.username == null }">
+                        <div id="img-user" class="user-img">
+                            <img src="<c:url value="/img/buser/user.png"/>">
+                        </div>
+                        <textarea id="compents-input" placeholder="请先登录再发表评论，谢谢" maxlength="1000"></textarea>
+                        <button disabled="disabled">提交</button>
+                    </c:when>
+                    <c:otherwise>
+                        <div id="img-user" class="user-img">
+                            <img src="<c:url value="${ sessionScope.userImg }"/>">
+                        </div>
+                        <textarea id="compents-input" placeholder="请使用文明用语，谢谢" maxlength="1000"></textarea>
+                        <button data-submit="<%=request.getContextPath()%>"
+                                data-bookCode="${ requestScope.book.bookCode }" data-code="${ sessionScope.code }"
+                                id="submit-comment">提交
+                        </button>
+                    </c:otherwise>
+                </c:choose>
             </div>
+            <c:forEach items="${ requestScope.commentList }" var="comment">
+                <div class="compents-box">
+                    <div class="compents-img">
+                        <img src="<c:url value="${ comment.userCommpment.userImg }"/> ">
+                    </div>
+                    <div class="compents-content">
+                        <p>${ comment.userCommpment.name }</p>
+                        <p>${ comment.userCommpment.content }</p>
+                        <p>
+                            <span><i class="fa fa-calendar-minus-o"></i>${ comment.userCommpment.createTime }</span>
+                            <c:if test="${ comment.userCommentList != null }">
+                                <b id="more-compents">— 展开${ comment.userCommentList.size() }条回复 <i
+                                        class="fa fa-caret-down"></i></b>
+                            </c:if>
+                            <a data-index=${ comment.userCommpment.id } id="reply-compents" href="javascript:;">回复</a>
+                        </p>
+                    </div>
+                    <c:if test="${ comment.userCommentList != null }">
+                        <div style="display: none;" id="child-compents">
+                            <c:forEach items="${ comment.userCommentList }" var="childrenComment">
+                                <div class="compents-box">
+                                    <div class="compents-img">
+                                        <img src="<c:url value="${ childrenComment.userImg }"/>">
+                                    </div>
+                                    <div class="compents-content">
+                                        <p>${ childrenComment.name }
+                                            <c:if test="${ childrenComment.parentCommentId != comment.userCommpment.id }">
+                                                @ <c:forEach items="${ comment.userCommentList }" var="find_name">
+                                                <c:if test="${ find_name.id == childrenComment.parentCommentId }">
+                                                    <c:out value="${ find_name.name }"/>
+                                                </c:if>
+                                            </c:forEach>
+                                            </c:if>
+                                        </p>
+                                        <p>${ childrenComment.content }</p>
+                                        <p>
+                                        <span><i
+                                                class="fa fa-calendar-minus-o"></i>${ childrenComment.createTime }</span>
+                                            <a data-index=${ childrenComment.id } id="reply-compents-child"
+                                               href="javascript:;">回复</a>
+                                        </p>
+                                    </div>
+                                </div>
+                            </c:forEach>
+                        </div>
+                    </c:if>
+                </div>
+            </c:forEach>
         </div>
     </div>
 </div>

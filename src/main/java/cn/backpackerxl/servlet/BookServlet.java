@@ -1,15 +1,17 @@
 package cn.backpackerxl.servlet;
 
+import cn.backpackerxl.dao.CommentDao;
 import cn.backpackerxl.entity.Book;
 import cn.backpackerxl.entity.BookType;
+import cn.backpackerxl.pojo.CommentFactory;
 import cn.backpackerxl.service.BookService;
+import cn.backpackerxl.service.CommentService;
 import cn.backpackerxl.service.impl.BookUserServiceImp;
+import cn.backpackerxl.service.impl.CommentServiceImp;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.*;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -18,6 +20,7 @@ import java.util.List;
 @WebServlet(name = "BookServlet", value = "/book")
 public class BookServlet extends HttpServlet {
     BookService bookService = new BookUserServiceImp();
+    CommentService commentService = new CommentServiceImp();
     List<BookType> bookTypes = bookService.findBookByType();
     List<Book> bottomBookLists = bookService.recommendBook(4);
 
@@ -41,8 +44,10 @@ public class BookServlet extends HttpServlet {
     public void getBook(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String bookCode = request.getParameter("bookCode");
         Book book = bookService.findBookByBookCode(bookCode);
+        List<CommentFactory> commentList = commentService.findAllByBookCode(bookCode);
         request.setAttribute("book", book);
         request.setAttribute("bookTypes", bookTypes);
+        request.setAttribute("commentList", commentList);
         request.getRequestDispatcher("/binfo.jsp").forward(request, response);
     }
 

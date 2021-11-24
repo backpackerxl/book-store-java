@@ -15,10 +15,7 @@ import cn.backpackerxl.util.StringToJSON;
 import javax.mail.MessagingException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+import javax.servlet.http.*;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -181,7 +178,7 @@ public class UserServlet extends HttpServlet {
             session.removeAttribute("checkLoginCode");
             user.setPasswd("");
             session.setAttribute("username", user.getName());
-            session.setAttribute("userid", user.getId());
+            session.setAttribute("code", user.getId());
             session.setAttribute("userImg", user.getUserImg());
             response.sendRedirect(request.getContextPath());
         } else {
@@ -197,7 +194,7 @@ public class UserServlet extends HttpServlet {
      */
     public void loginOut(HttpServletRequest request, HttpServletResponse response) throws IOException {
         session.removeAttribute("username");
-        session.removeAttribute("userid");
+        session.removeAttribute("code");
         session.removeAttribute("userImg");
         response.sendRedirect(request.getContextPath());
     }

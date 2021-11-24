@@ -7,12 +7,17 @@ package test;
 
 import cn.backpackerxl.entity.Book;
 import cn.backpackerxl.entity.User;
+import cn.backpackerxl.pojo.CommentFactory;
+import cn.backpackerxl.pojo.UserCommpment;
 import cn.backpackerxl.service.BookService;
+import cn.backpackerxl.service.CommentService;
 import cn.backpackerxl.service.UserService;
 import cn.backpackerxl.service.impl.BookUserServiceImp;
+import cn.backpackerxl.service.impl.CommentServiceImp;
 import cn.backpackerxl.service.impl.UserServiceImp;
 import cn.backpackerxl.util.DButils;
 import cn.backpackerxl.util.StringToJSON;
+import com.alibaba.fastjson.JSON;
 import org.junit.Test;
 
 import java.io.*;
@@ -22,6 +27,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.text.DateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -180,18 +186,89 @@ public class test {
         int i = preparedStatement.executeUpdate();
         System.out.println(i);
     }
+
     @Test
     public void Url() throws SQLException {
 //        InputStream in = this.getClass().getResourceAsStream("/druid.properties");
         for (int i = 49; i < 50; i++) {
-            this.update(code(String.valueOf(Math.PI*Math.random())), i);
+            this.update(code(String.valueOf(Math.PI * Math.random())), i);
         }
     }
 
     @Test
-    public void getBookList(){
+    public void getBookList() {
         BookService bookService = new BookUserServiceImp();
         List<Book> bookList = bookService.recommendBook(5);
         System.out.println(bookList);
+    }
+
+    @Test
+    public void getCommentFactoryList(){
+        CommentService commentService = new CommentServiceImp();
+        List<CommentFactory> allByBookCode = commentService.findAllByBookCode("54e9f32483bbd1ae16eb999454b12fda");
+        for (CommentFactory commentFactory: allByBookCode){
+            System.out.println(commentFactory);
+        }
+    }
+
+    @Test
+    public void getCommentList() {
+        CommentService commentService = new CommentServiceImp();
+//        List<UserCommpment> allByBookCode = commentService.findAllByBookCode("54e9f32483bbd1ae16eb999454b12fda");
+        List<UserCommpment> comments = new ArrayList<>();
+        comments.add(new UserCommpment(2, "屌炸了", "/img/buser/elyse.png", "oh my god ! this very intertesing", new Date(2021 - 11 - 06), "54e9f32483bbd1ae16eb999454b12fda", 0));
+        comments.add(new UserCommpment(8, "屌炸了", "/img/buser/elyse.png", "oh my god ! this very intertesing", new Date(2021 - 11 - 24), "54e9f32483bbd1ae16eb999454b12fda", 6));
+        comments.add(new UserCommpment(7, "admin", "/img/buser/avater.jpg", "ok, ok, ok", new Date(2021 - 11 - 06), "54e9f32483bbd1ae16eb999454b12fda", 0));
+        comments.add(new UserCommpment(9, "admin", "/img/buser/avater.jpg", "呵呵", new Date(2021 - 11 - 24), "54e9f32483bbd1ae16eb999454b12fda", 8));
+        comments.add(new UserCommpment(6, "龙在天", "/img/buser/elyse.png", "nice, nice ,nice", new Date(2021 - 11 - 06), "54e9f32483bbd1ae16eb999454b12fda", 2));
+        comments.add(new UserCommpment(10, "龙在天", "/img/buser/elyse.png", "嘻嘻嘻", new Date(2021 - 11 - 24), "54e9f32483bbd1ae16eb999454b12fda", 0));
+        comments.add(new UserCommpment(11, "小天天", "/img/buser/elyse.png", "嘻嘻嘻", new Date(2021 - 11 - 24), "54e9f32483bbd1ae16eb999454b12fda", 10));
+        comments.add(new UserCommpment(12, "小白", "/img/buser/elyse.png", "嘻嘻嘻", new Date(2021 - 11 - 24), "54e9f32483bbd1ae16eb999454b12fda", 11));
+        comments.add(new UserCommpment(13, "小白", "/img/buser/elyse.png", "嘻嘻嘻", new Date(2021 - 11 - 24), "54e9f32483bbd1ae16eb999454b12fda", 7));
+
+        List<CommentFactory> commentFactoryList = new ArrayList<>();
+        List<UserCommpment> children = new ArrayList<>();
+        for (UserCommpment userCommpment : comments) {
+            if (userCommpment.getParentCommentId() == 0) {
+                commentFactoryList.add(new CommentFactory(userCommpment));
+            } else {
+                children.add(userCommpment);
+            }
+        }
+
+        List<UserCommpment> temp = new ArrayList<>();
+        for (UserCommpment userCommpment : children) {
+            for (CommentFactory commentFactory1 : commentFactoryList) {
+                if (userCommpment.getParentCommentId() == commentFactory1.getUserCommpment().getId()) {
+                    temp.add(userCommpment);
+                    commentFactory1.setUserCommentList(temp);
+                    temp = new ArrayList<>();
+                    break;
+                }
+            }
+        }
+
+        for (UserCommpment userCommpment : children) {
+            for (CommentFactory commentFactory1 : commentFactoryList) {
+                if (commentFactory1.getUserCommentList() != null) {
+                    for (UserCommpment userCommpment1 : commentFactory1.getUserCommentList()) {
+                        if (userCommpment.getParentCommentId() == userCommpment1.getId()) {
+                            temp = commentFactory1.getUserCommentList();
+                            temp.add(userCommpment);
+                            commentFactory1.setUserCommentList(temp);
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+
+        for (CommentFactory commentFactory1 : commentFactoryList) {
+            System.out.println(commentFactory1);
+        }
+
+        //        String allComments = JSON.toJSONString(allByBookCode);
+//        System.out.println(allByBookCode);
+
     }
 }
