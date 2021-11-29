@@ -1,7 +1,8 @@
 package cn.backpackerxl.dao;
 
 import cn.backpackerxl.entity.Book;
-import cn.backpackerxl.entity.BookType;
+import cn.backpackerxl.pojo.BookType;
+import cn.backpackerxl.pojo.PageBean;
 
 import java.util.List;
 
@@ -16,4 +17,14 @@ public interface BookDao {
     Book findBookByBookCode(String bookCode);
 
     List<BookType> findBookByType();
+
+    List<Book> findBooksByBookType(int parseInt);
+
+    BookType findBookTypeNumbers(int parseInt);
+
+    List<Book> findBookByName(String keywords);
+
+    PageBean PageBooks(int currPage, int i);
+
+    int totalPage();
 }

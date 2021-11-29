@@ -8,12 +8,12 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>书城首页</title>
-    <%@include file="ResourcesTemplate.jsp"%>
+    <%@include file="compoments/ResourcesTemplate.jsp"%>
     <link rel="stylesheet" href="<c:url value="/css/book-me.css" />">
 </head>
 
 <body>
-    <%@include file="HeadTemplate.jsp"%>
+    <%@include file="compoments/HeadTemplate.jsp"%>
 
     <div class="container">
         <div class="about">
@@ -35,7 +35,7 @@
             </div>
         </div>
     </div>
-    <%@include file="FooterTemplate.jsp"%>
+    <%@include file="compoments/FooterTemplate.jsp"%>
 </body>
 
 </html>

@@ -1,9 +1,9 @@
 package cn.backpackerxl.servlet;
 
-import cn.backpackerxl.dao.CommentDao;
 import cn.backpackerxl.entity.Book;
-import cn.backpackerxl.entity.BookType;
+import cn.backpackerxl.pojo.BookType;
 import cn.backpackerxl.pojo.CommentFactory;
+import cn.backpackerxl.pojo.PageBean;
 import cn.backpackerxl.service.BookService;
 import cn.backpackerxl.service.CommentService;
 import cn.backpackerxl.service.impl.BookUserServiceImp;
@@ -49,6 +49,31 @@ public class BookServlet extends HttpServlet {
         request.setAttribute("bookTypes", bookTypes);
         request.setAttribute("commentList", commentList);
         request.getRequestDispatcher("/binfo.jsp").forward(request, response);
+    }
+
+    public void getBookType(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String typeId = request.getParameter("typeId");
+        List<Book> bookTypeLists = bookService.findBooksByBookType(Integer.parseInt(typeId));
+        BookType bookType = bookService.findBookTypeNumbers(Integer.parseInt(typeId));
+        request.setAttribute("bookTypeLists", bookTypeLists);
+        request.setAttribute("bookTypes", bookTypes);
+        request.setAttribute("bookType", bookType);
+        request.getRequestDispatcher("/bshop.jsp").forward(request, response);
+    }
+
+    public void searchBook(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String keywords = request.getParameter("keywords");
+        List<Book> resBook = bookService.findBookByName(keywords);
+        request.setAttribute("resBook", resBook);
+        request.setAttribute("keywords", keywords);
+        request.getRequestDispatcher("/compoments/bsearch.jsp").forward(request, response);
+    }
+
+    public void findAll(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String currPage = request.getParameter("currPage");
+        PageBean pageBooks = bookService.PageBooks(Integer.parseInt(currPage), 12);
+        request.setAttribute("pageBooks", pageBooks);
+        request.getRequestDispatcher("/compoments/ball.jsp").forward(request, response);
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

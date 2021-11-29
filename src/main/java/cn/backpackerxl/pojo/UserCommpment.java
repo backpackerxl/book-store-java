@@ -1,6 +1,5 @@
 package cn.backpackerxl.pojo;
 
-import com.alibaba.fastjson.annotation.JSONField;
 
 import java.util.Date;
 
@@ -10,19 +9,12 @@ import java.util.Date;
  * @filename: Commpment
  **/
 public class UserCommpment {
-    @JSONField(ordinal = 1)
     private int id;
-    @JSONField(ordinal = 2)
     private String name;
-    @JSONField(ordinal = 3, name = "user_img")
     private String userImg;
-    @JSONField(ordinal = 4)
     private String content;
-    @JSONField(ordinal = 5)
     private Date createTime;
-    @JSONField(ordinal = 6, name = "product_id")
     private String productCode;
-    @JSONField(ordinal = 7, name = "parent_comment_id")
     private int parentCommentId;
 
 

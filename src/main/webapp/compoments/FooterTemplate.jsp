@@ -4,14 +4,18 @@
         <ul>
             <li class="title">快速进入</li>
             <li><a href="<c:url value="/"/> "><i class="fa fa-arrow-right"></i>首页</a></li>
-            <li><a href="#"><i class="fa fa-arrow-right"></i>分类</a></li>
-            <li><a href="#"><i class="fa fa-arrow-right"></i>书屋</a></li>
+            <li><a href="<c:url value="/book?actionType=getBookType&typeId=1"/> "><i
+                    class="fa fa-arrow-right"></i>分类</a></li>
+            <li><a href="<c:url value="/book?actionType=findAll&currPage=1"/> "><i class="fa fa-arrow-right"></i>书屋</a>
+            </li>
             <li><a href="#"><i class="fa fa-arrow-right"></i>书评</a></li>
         </ul>
         <ul>
             <li class="title">好书推荐</li>
-            <c:forEach items="${ requestScope.bottomBookLists }" var="bottomBookList" >
-                <li><a target="_blank" href="<c:url value="/book?actionType=getBook&bookCode=${ bottomBookList.bookCode }"/> "><i class="fa fa-arrow-right"></i>${ bottomBookList.bookName }</a></li>
+            <c:forEach items="${ requestScope.bottomBookLists }" var="bottomBookList">
+                <li><a target="_blank"
+                       href="<c:url value="/book?actionType=getBook&bookCode=${ bottomBookList.bookCode }"/> "><i
+                        class="fa fa-arrow-right"></i>${ bottomBookList.bookName }</a></li>
             </c:forEach>
         </ul>
         <ul>

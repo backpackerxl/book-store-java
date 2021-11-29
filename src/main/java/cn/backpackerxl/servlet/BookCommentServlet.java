@@ -2,10 +2,8 @@ package cn.backpackerxl.servlet;
 
 import cn.backpackerxl.entity.Compents;
 import cn.backpackerxl.pojo.CommentFactory;
-import cn.backpackerxl.pojo.UserCommpment;
 import cn.backpackerxl.service.CommentService;
 import cn.backpackerxl.service.impl.CommentServiceImp;
-import com.alibaba.fastjson.JSON;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
@@ -39,7 +37,7 @@ public class BookCommentServlet extends HttpServlet {
             e.printStackTrace();
         }
     }
-    public void submit(HttpServletRequest request, HttpServletResponse response){
+    public void submit(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String userId = request.getParameter("userId");
         String content = request.getParameter("content");
         String productCode = request.getParameter("product_code");
@@ -51,5 +49,12 @@ public class BookCommentServlet extends HttpServlet {
         compents.setProductCode(productCode);
         compents.setParentCommentId(Integer.parseInt(parentCommentId));
         int target = commentService.addComment(compents);
+        if (target == 0){
+            request.getRequestDispatcher("/compoments/comment-error.jsp").forward(request, response);
+        }else {
+            List<CommentFactory> commentList = commentService.findAllByBookCode(productCode);
+            request.setAttribute("commentList", commentList);
+            request.getRequestDispatcher("/compoments/comment.jsp").forward(request,response);
+        }
     }
 }

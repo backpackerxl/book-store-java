@@ -101,7 +101,14 @@ nav .middle ul a:hover {
     border-radius: .25rem;
 }
 
-nav .middle .user img {
+nav .middle #avater {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    width: 100px;
+}
+
+nav .middle #avater img {
     width: 40px;
     border-radius: 50%;
     box-shadow: 0 2px 6px rgba(0, 0, 0, .2);
@@ -115,19 +122,14 @@ nav .middle .user {
     cursor: pointer;
 }
 
-nav .middle .user span {
-    position: absolute;
-    margin: 15px 0 0 5px;
-}
-
 nav .middle .user #menu-pop {
     box-shadow: 1px 2px 6px rgba(0, 0, 0, .15);
     position: absolute;
     padding: 5px 0;
     width: 120px;
     background: #fe7300;
-    right: -60px;
-    top: 50px;
+    right: 0px;
+    top: 49px;
     border-bottom-left-radius: 5px;
     text-align: center;
     border-bottom-right-radius: 5px;
@@ -142,32 +144,34 @@ footer {
     width: 100%;
     line-height: 35px;
     text-align: center;
-    box-shadow: 0 2px 6px rgba(0,0,0,.2);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, .2);
 }
 
-footer .link{
+footer .link {
     display: flex;
     justify-content: space-evenly;
     color: #444;
 }
 
-footer ul .title{
+footer ul .title {
     font-size: 18px;
 }
 
-footer ul li a i{
+footer ul li a i {
     color: #fe7300;
     padding: 5px;
 }
-footer #logo::before{
+
+footer #logo::before {
     content: "—————————————————————— ";
     color: #ddd;
 }
 
-footer #logo::after{
+footer #logo::after {
     content: " ——————————————————————";
     color: #ddd;
 }
+
 footer ul li a {
     display: block;
     color: #444;

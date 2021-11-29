@@ -1,25 +1,33 @@
-package cn.backpackerxl.servlet;
+package cn.backpackerxl.filter;
 
 import cn.backpackerxl.entity.Book;
 import cn.backpackerxl.service.BookService;
 import cn.backpackerxl.service.impl.BookUserServiceImp;
 
 import javax.servlet.*;
-import javax.servlet.http.*;
-import javax.servlet.annotation.*;
+import javax.servlet.annotation.WebFilter;
 import java.io.IOException;
 import java.util.List;
 
-@WebServlet(name = "IndexServlet", value = "/")
-public class IndexServlet extends HttpServlet {
+/**
+ * @author: backpackerxl
+ * @create: 2021/11/27
+ * @filename: IndexFilter
+ **/
+@WebFilter(filterName = "IndexFilter", value = "/index.jsp")
+public class IndexFilter implements Filter {
     BookService bookService = new BookUserServiceImp();
     List<Book> bookCharts = bookService.recommendBook(5);
     List<Book> goodBookLists = bookService.recommendBook(8);
     List<Book> bottomBookLists = bookService.recommendBook(4);
     List<Book> bookHots = bookService.recommendBook(1);
+    @Override
+    public void init(FilterConfig filterConfig) throws ServletException {
+
+    }
 
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    public void doFilter(ServletRequest request, ServletResponse response, FilterChain filterChain) throws IOException, ServletException {
         request.setAttribute("bookCharts", bookCharts);
         request.setAttribute("goodBookLists", goodBookLists);
         request.setAttribute("bottomBookLists", bottomBookLists);
@@ -28,7 +36,7 @@ public class IndexServlet extends HttpServlet {
     }
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        doGet(request, response);
+    public void destroy() {
+
     }
 }

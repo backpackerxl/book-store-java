@@ -1,6 +1,6 @@
 :root {
     --main-color: #fe7300;
-    --loading-grey: #ededed;
+    --loading-grey: #ffffff;
 }
 
 body, html {
@@ -37,7 +37,7 @@ body, html {
 .productlist-left ul a {
     color: #444;
     border-bottom: 1px solid #ccc;
-    width: 100%;
+    width: 92%;
     padding: 5px 25px;
     transition: background .2s;
     transition: padding .2s;
@@ -111,6 +111,7 @@ body, html {
 }
 
 .productlist-right .book-img-warp .box {
+    position: relative;
     width: 220px;
     box-sizing: border-box;
     font-size: 15px;
@@ -123,7 +124,7 @@ body, html {
     margin-bottom: 20px;
 }
 
-.productlist-right .book-img-warp .box:hover{
+.productlist-right .book-img-warp .box:hover {
     transform: translateY(-10px);
 }
 
@@ -153,30 +154,38 @@ body, html {
     line-height: .6rem;
 }
 
-.loading .image, .loading h4, .loading .author {
-    background-color: var(--loading-grey);
-    background: linear-gradient( 100deg, rgba(255, 255, 255, 0) 40%, rgba(255, 255, 255, .5) 50%, rgba(255, 255, 255, 0) 60%) var(--loading-grey);
-    background-size: 200% 100%;
-    background-position-x: 180%;
-    animation: 1s loading ease-in-out infinite;
+.box.loading::before {
+    position: absolute;
+    content: "暂时缺货";
+    color: var(--main-color);
+    font-size: 30px;
+    display: flex;
+    background: linear-gradient(100deg, rgba(255, 255, 255, .6) 40%, rgba(255, 255, 255, .7) 50%, rgba(255, 255, 255, .6) 60%);
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
 }
 
-@keyframes loading {
-    to {
-        background-position-x: -20%;
-    }
+.productlist-right .page-warp {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 30px;
 }
 
-.loading h4 {
-    min-height: 1rem;
-    border-radius: 4px;
-    animation-delay: .05s;
+.productlist-right .page-warp span {
+    margin: 0 50px;
 }
 
-.loading .author {
-    min-height: 2rem;
-    border-radius: 4px;
-    animation-delay: .06s;
+.productlist-right .page-warp a {
+    width: 60px;
+    border: 2px solid #fe7300;
+    height: 25px;
+    text-align: center;
+    line-height: 25px;
+    color: #fe7300;
+    border-radius: 5px;
 }
 
 footer {

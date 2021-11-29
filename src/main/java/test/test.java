@@ -6,6 +6,7 @@ package test;
  **/
 
 import cn.backpackerxl.entity.Book;
+import cn.backpackerxl.entity.Compents;
 import cn.backpackerxl.entity.User;
 import cn.backpackerxl.pojo.CommentFactory;
 import cn.backpackerxl.pojo.UserCommpment;
@@ -15,23 +16,17 @@ import cn.backpackerxl.service.UserService;
 import cn.backpackerxl.service.impl.BookUserServiceImp;
 import cn.backpackerxl.service.impl.CommentServiceImp;
 import cn.backpackerxl.service.impl.UserServiceImp;
-import cn.backpackerxl.util.DButils;
 import cn.backpackerxl.util.StringToJSON;
-import com.alibaba.fastjson.JSON;
 import org.junit.Test;
 
-import java.io.*;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
 import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import static cn.backpackerxl.util.MD5Utils.code;
 
 
 public class test {
@@ -59,11 +54,11 @@ public class test {
         t.login();
     }
 
-    @Test
-    public void testConon() throws SQLException {
-        Connection connection = DButils.getConnection();
-        System.out.println(connection);
-    }
+//    @Test
+//    public void testConon() throws SQLException {
+//        Connection connection = DButils.getConnection();
+//        System.out.println(connection);
+//    }
 
     @Test
     public void testJSON() {
@@ -138,12 +133,13 @@ public class test {
 
     @Test
     public void time() throws UnknownHostException {
-        String address = InetAddress.getLocalHost().getHostAddress();
-        System.out.println("\033[42mDONE\033[0m" + "\033[32m ,Compiled successfully\033[0m");
-        System.out.println("App running at:");
-        System.out.println("[\033[36m" + DateFormat.getDateTimeInstance(DateFormat.MEDIUM, DateFormat.MEDIUM).format(new Date()) + "\033[0m] \033[42mINFO\033[0m - Local: \033[34mhttp://localhost:3000/book-store\033[0m");
-        System.out.println("[\033[36m" + DateFormat.getDateTimeInstance(DateFormat.MEDIUM, DateFormat.MEDIUM).format(new Date()) + "\033[0m] \033[42mINFO\033[0m - Network: \033[34mhttp://" + address + ":3000/book-store\033[0m");
-        System.out.println("Note that the development build is not optimized.\nTo create a production build, run \033[36mmvn clean package\033[0m.");
+        System.out.println(new java.sql.Date(new Date().getTime()));
+//        String address = InetAddress.getLocalHost().getHostAddress();
+//        System.out.println("\033[42mDONE\033[0m" + "\033[32m ,Compiled successfully\033[0m");
+//        System.out.println("App running at:");
+//        System.out.println("[\033[36m" + DateFormat.getDateTimeInstance(DateFormat.MEDIUM, DateFormat.MEDIUM).format(new Date()) + "\033[0m] \033[42mINFO\033[0m - Local: \033[34mhttp://localhost:3000/book-store\033[0m");
+//        System.out.println("[\033[36m" + DateFormat.getDateTimeInstance(DateFormat.MEDIUM, DateFormat.MEDIUM).format(new Date()) + "\033[0m] \033[42mINFO\033[0m - Network: \033[34mhttp://" + address + ":3000/book-store\033[0m");
+//        System.out.println("Note that the development build is not optimized.\nTo create a production build, run \033[36mmvn clean package\033[0m.");
     }
 
     @Test
@@ -177,23 +173,6 @@ public class test {
         });
     }
 
-    public void update(String code, int id) throws SQLException {
-        String sql = "update t_book set book_code=? where id = ?";
-        Connection connection = DButils.getConnection();
-        PreparedStatement preparedStatement = connection.prepareStatement(sql);
-        preparedStatement.setNString(1, code);
-        preparedStatement.setInt(2, id);
-        int i = preparedStatement.executeUpdate();
-        System.out.println(i);
-    }
-
-    @Test
-    public void Url() throws SQLException {
-//        InputStream in = this.getClass().getResourceAsStream("/druid.properties");
-        for (int i = 49; i < 50; i++) {
-            this.update(code(String.valueOf(Math.PI * Math.random())), i);
-        }
-    }
 
     @Test
     public void getBookList() {
@@ -211,6 +190,12 @@ public class test {
         }
     }
 
+    @Test
+    public void findBook(){
+//        BookService bookService = new BookUserServiceImp();
+//        List<Book> list = bookService.findBookByName("乔布斯");
+        System.out.println(45 / 7);
+    }
     @Test
     public void getCommentList() {
         CommentService commentService = new CommentServiceImp();
@@ -270,5 +255,16 @@ public class test {
         //        String allComments = JSON.toJSONString(allByBookCode);
 //        System.out.println(allByBookCode);
 
+    }
+    @Test
+    public void insert(){
+        CommentService commentService = new CommentServiceImp();
+        Compents compents = new Compents();
+        compents.setCreateTime(new Date());
+        compents.setUserId(2);
+        compents.setContent("哈哈哈");
+        compents.setProductCode("54e9f32483bbd1ae16eb999454b12fda");
+        compents.setParentCommentId(10);
+        int target = commentService.addComment(compents);
     }
 }

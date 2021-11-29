@@ -7,9 +7,16 @@
             <p>backpackerxl.cn</p>
         </div>
         <div class="right">
-            <form action="#" method="post">
+            <form action="${ pageContext.request.contextPath }/book?actionType=searchBook" method="post">
                 <div class="search-shop">
-                    <input type="text" placeholder="搜索喜欢的商品">
+                    <c:choose>
+                        <c:when test="${ requestScope.keywords == null }">
+                            <input type="text" name="keywords" placeholder="搜索喜欢的商品">
+                        </c:when>
+                        <c:otherwise>
+                            <input type="text" name="keywords" placeholder="搜索喜欢的商品" value="${ requestScope.keywords }">
+                        </c:otherwise>
+                    </c:choose>
                     <i class="fa fa-search"></i>
                 </div>
             </form>
@@ -18,8 +25,8 @@
     <div id="middle-nav" class="middle">
         <ul>
             <a href="<c:url value="/"/> "><i class="fa fa-home"></i>首页</a>
-            <a href="#"><i class="fa fa-info-circle"></i>分类</a>
-            <a href="#"><i class="fa fa-book"></i>书屋</a>
+            <a href="<c:url value="/book?actionType=getBookType&typeId=1"/> "><i class="fa fa-info-circle"></i>分类</a>
+            <a href="<c:url value="/book?actionType=findAll&currPage=1" /> "><i class="fa fa-book"></i>书屋</a>
             <a href="#"><i class="fa fa-commenting"></i>书评</a>
         </ul>
         <%
@@ -29,8 +36,10 @@
         <a class="user-to-login" href="<c:url value="/login"/>">登录</a>
         <%} else {%>
         <div id="username" class="user">
-            <img src="<c:url value="${ userImg }"/> ">
-            <span>${ username }</span>
+            <div id="avater">
+                <img src="<c:url value="${ userImg }"/> ">
+                <span>${ username }</span>
+            </div>
             <ul id="menu-pop">
                 <a href="<c:url value="/bcar"/>"><i class="fa fa-cart-plus"></i> 购 物 车</a>
                 <a href="#"><i class="fa fa-user"></i> 帐号管理</a>

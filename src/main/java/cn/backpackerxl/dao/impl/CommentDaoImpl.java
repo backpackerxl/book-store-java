@@ -19,18 +19,27 @@ public class CommentDaoImpl implements CommentDao {
     PreparedStatement preparedStatement = null;
     ResultSet resultSet = null;
 
+    public void setValue(PreparedStatement preparedStatement, Compents compents) throws SQLException {
+        preparedStatement.setDate(1, new Date(compents.getCreateTime().getTime()));
+        preparedStatement.setInt(2, compents.getUserId());
+        preparedStatement.setNString(3, compents.getContent());
+        preparedStatement.setNString(4, compents.getProductCode());
+    }
     @Override
     public int addComment(Compents compents) {
         int target = 0;
         try {
             connection = DButils.getConnection();
-            preparedStatement = connection.prepareStatement("insert into t_compents value(id,?,?,?,?,? )");
-            preparedStatement.setDate(1, (Date) compents.getCreateTime());
-            preparedStatement.setInt(2, compents.getUserId());
-            preparedStatement.setNString(3, compents.getContent());
-            preparedStatement.setNString(4, compents.getProductCode());
-            preparedStatement.setInt(5, compents.getParentCommentId());
-            target = preparedStatement.executeUpdate();
+            if (compents.getParentCommentId() == 0) {
+                preparedStatement = connection.prepareStatement("insert into t_compents(id, create_time, user_id, content, product_code) value(id,?,?,?,?)");
+                setValue(preparedStatement, compents);
+                target = preparedStatement.executeUpdate();
+            } else {
+                preparedStatement = connection.prepareStatement("insert into t_compents value(id,?,?,?,?,? )");
+                setValue(preparedStatement, compents);
+                preparedStatement.setInt(5, compents.getParentCommentId());
+                target = preparedStatement.executeUpdate();
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
@@ -48,7 +57,7 @@ public class CommentDaoImpl implements CommentDao {
             preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setNString(1, bookCode);
             resultSet = preparedStatement.executeQuery();
-            while (resultSet.next()){
+            while (resultSet.next()) {
                 int id = resultSet.getInt(1);
                 String name = resultSet.getString(2);
                 String userImg = resultSet.getString(3);

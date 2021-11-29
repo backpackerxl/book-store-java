@@ -1,7 +1,8 @@
 package cn.backpackerxl.service;
 
 import cn.backpackerxl.entity.Book;
-import cn.backpackerxl.entity.BookType;
+import cn.backpackerxl.pojo.BookType;
+import cn.backpackerxl.pojo.PageBean;
 
 import java.util.List;
 
@@ -16,4 +17,12 @@ public interface BookService {
     Book findBookByBookCode(String bookCode);
 
     List<BookType> findBookByType();
+
+    List<Book> findBooksByBookType(int parseInt);
+
+    BookType findBookTypeNumbers(int parseInt);
+
+    List<Book> findBookByName(String keywords);
+
+    PageBean PageBooks(int currPage, int i);
 }

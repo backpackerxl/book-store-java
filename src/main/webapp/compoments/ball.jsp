@@ -7,7 +7,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>书籍分类</title>
+    <title>全部书籍</title>
     <%@include file="/compoments/ResourcesTemplate.jsp" %>
     <link rel="stylesheet" href="<c:url value="/css/book-shop.css"/>">
 </head>
@@ -16,39 +16,22 @@
 <%@include file="/compoments/HeadTemplate.jsp" %>
 
 <div class="container">
-    <div class="productlist-left">
-        <h4>分类</h4>
-        <ul>
-            <c:forEach items="${ requestScope.bookTypes }" var="type">
-                <c:choose>
-                    <c:when test="${ type.id ==  requestScope.bookType.id }">
-                        <a href="<c:url value="/book?actionType=getBookType&typeId=${ type.id }"/> " class="active"><i
-                                class="fa fa-check-square"></i>${ type.typeName } ${ type.numbers }</a>
-                    </c:when>
-                    <c:otherwise>
-                        <a href="<c:url value="/book?actionType=getBookType&typeId=${ type.id }"/> "><i
-                                class="fa fa-check-square"></i>${ type.typeName } ${ type.numbers }</a>
-                    </c:otherwise>
-                </c:choose>
-            </c:forEach>
-        </ul>
-    </div>
-    <div class="productlist-right">
-        <h4 class="book-list"><i class="fa fa-list"></i>商品目录</h4>
-        <h4 class="book-type">${ requestScope.bookType.typeName } 类 <span>共${ requestScope.bookType.numbers }种商品</span>
+    <div style="width: 960px;" class="productlist-right">
+        <h4 style="border: none;" class="book-list"><i class="fa fa-list"></i>
+            全部商品列表
         </h4>
         <div class="list-warp">PRODUCT LIST</div>
         <div class="book-img-warp">
-            <c:forEach items="${ requestScope.bookTypeLists }" var="bookTypeList">
+            <c:forEach items="${ requestScope.pageBooks.list }" var="pageList">
                 <c:choose>
-                    <c:when test="${ bookTypeList.bookQuantity == 0 }">
+                    <c:when test="${ pageList.bookQuantity == 0 }">
                         <div class="box loading">
                             <div class="image">
-                                <img src="<c:url value="${ bookTypeList.bookImg }"/> "/>
+                                <img src="<c:url value="${ pageList.bookImg }"/> "/>
                             </div>
                             <div class="content">
-                                <h4 class="book-name">${ bookTypeList.bookName }</h4>
-                                <div class="author">${ bookTypeList.bookAuthor }</div>
+                                <h4 class="book-name">${ pageList.bookName }</h4>
+                                <div class="author">${ pageList.bookAuthor }</div>
                             </div>
                         </div>
                     </c:when>
@@ -56,18 +39,27 @@
                         <div class="box">
                             <div class="image">
                                 <a target="_blank"
-                                   href="<c:url value="/book?actionType=getBook&bookCode=${ bookTypeList.bookCode }"/> ">
-                                    <img src="<c:url value="${ bookTypeList.bookImg }"/> "/>
+                                   href="<c:url value="/book?actionType=getBook&bookCode=${ pageList.bookCode }"/> ">
+                                    <img src="<c:url value="${ pageList.bookImg }"/> "/>
                                 </a>
                             </div>
                             <div class="content">
-                                <h4 class="book-name">${ bookTypeList.bookName }</h4>
-                                <div class="author">${ bookTypeList.bookAuthor }</div>
+                                <h4 class="book-name">${ pageList.bookName }</h4>
+                                <div class="author">${ pageList.bookAuthor }</div>
                             </div>
                         </div>
                     </c:otherwise>
                 </c:choose>
             </c:forEach>
+        </div>
+        <div class="page-warp">
+            <c:if test="${ requestScope.pageBooks.currentPage > 1 }">
+                <a href="<c:url value="/book?actionType=findAll&currPage=${ requestScope.pageBooks.currentPage-1 }"/> ">上一页</a>
+            </c:if>
+            <span>共${ requestScope.pageBooks.totalSize }本书籍 当前 ${ requestScope.pageBooks.currentPage }/${ requestScope.pageBooks.totalPage } 页</span>
+            <c:if test="${ requestScope.pageBooks.currentPage < requestScope.pageBooks.totalPage }">
+                <a href="<c:url value="/book?actionType=findAll&currPage=${ requestScope.pageBooks.currentPage+1 }"/> ">下一页</a>
+            </c:if>
         </div>
     </div>
 </div>

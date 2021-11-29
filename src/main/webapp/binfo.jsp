@@ -7,14 +7,14 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>书籍详情页</title>
-    <%@include file="ResourcesTemplate.jsp" %>
+    <title>${ requestScope.book.bookName }</title>
+    <%@include file="/compoments/ResourcesTemplate.jsp" %>
     <link rel="stylesheet" href="<c:url value="/css/book-info.css"/>">
     <link rel="stylesheet" href="<c:url value="/css/book-shop.css"/> ">
 </head>
 
 <body>
-<%@include file="HeadTemplate.jsp" %>
+<%@include file="/compoments/HeadTemplate.jsp" %>
 
 <div class="container">
     <div class="productlist-left">
@@ -23,11 +23,11 @@
             <c:forEach items="${ requestScope.bookTypes }" var="bookType">
                 <c:choose>
                     <c:when test="${ bookType.id ==  requestScope.book.typeId }">
-                        <a href="<c:url value="/"/> " class="active"><i
-                                class="fa fa-check-square"></i>${ bookType.typeName }</a>
+                        <a href="<c:url value="/book?actionType=getBookType&typeId=${ bookType.id }"/> " class="active"><i
+                                class="fa fa-check-square"></i>${ bookType.typeName } ${ bookType.numbers }</a>
                     </c:when>
                     <c:otherwise>
-                        <a href="<c:url value="/"/> "><i class="fa fa-check-square"></i>${ bookType.typeName }</a>
+                        <a href="<c:url value="/book?actionType=getBookType&typeId=${ bookType.id }"/> "><i class="fa fa-check-square"></i>${ bookType.typeName } ${ bookType.numbers }</a>
                     </c:otherwise>
                 </c:choose>
             </c:forEach>
@@ -98,58 +98,13 @@
                     </c:otherwise>
                 </c:choose>
             </div>
-            <c:forEach items="${ requestScope.commentList }" var="comment">
-                <div class="compents-box">
-                    <div class="compents-img">
-                        <img src="<c:url value="${ comment.userCommpment.userImg }"/> ">
-                    </div>
-                    <div class="compents-content">
-                        <p>${ comment.userCommpment.name }</p>
-                        <p>${ comment.userCommpment.content }</p>
-                        <p>
-                            <span><i class="fa fa-calendar-minus-o"></i>${ comment.userCommpment.createTime }</span>
-                            <c:if test="${ comment.userCommentList != null }">
-                                <b id="more-compents">— 展开${ comment.userCommentList.size() }条回复 <i
-                                        class="fa fa-caret-down"></i></b>
-                            </c:if>
-                            <a data-index=${ comment.userCommpment.id } id="reply-compents" href="javascript:;">回复</a>
-                        </p>
-                    </div>
-                    <c:if test="${ comment.userCommentList != null }">
-                        <div style="display: none;" id="child-compents">
-                            <c:forEach items="${ comment.userCommentList }" var="childrenComment">
-                                <div class="compents-box">
-                                    <div class="compents-img">
-                                        <img src="<c:url value="${ childrenComment.userImg }"/>">
-                                    </div>
-                                    <div class="compents-content">
-                                        <p>${ childrenComment.name }
-                                            <c:if test="${ childrenComment.parentCommentId != comment.userCommpment.id }">
-                                                @ <c:forEach items="${ comment.userCommentList }" var="find_name">
-                                                <c:if test="${ find_name.id == childrenComment.parentCommentId }">
-                                                    <c:out value="${ find_name.name }"/>
-                                                </c:if>
-                                            </c:forEach>
-                                            </c:if>
-                                        </p>
-                                        <p>${ childrenComment.content }</p>
-                                        <p>
-                                        <span><i
-                                                class="fa fa-calendar-minus-o"></i>${ childrenComment.createTime }</span>
-                                            <a data-index=${ childrenComment.id } id="reply-compents-child"
-                                               href="javascript:;">回复</a>
-                                        </p>
-                                    </div>
-                                </div>
-                            </c:forEach>
-                        </div>
-                    </c:if>
-                </div>
-            </c:forEach>
+            <div id="comment-container">
+                <%@include file="compoments/comment.jsp" %>
+            </div>
         </div>
     </div>
 </div>
-<%@include file="FooterTemplate.jsp" %>
+<%@include file="/compoments/FooterTemplate.jsp" %>
 <div id="up-to-top">
     <i class="fa fa-arrow-up"></i>
 </div>
